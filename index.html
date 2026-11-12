@@ -289,8 +289,8 @@ function rend(){
  $('#tr').innerHTML=`<div class="glass big tilt rv"><span class="tag">${L('الدبلومة الرئيسية','Flagship Diploma')}</span><div class="ic">${ico('cpu')}</div><h3 style="font-size:1.4rem">${L('دبلومة الذكاء الاصطناعي وتعلّم الآلة','AI & Machine Learning Diploma')}</h3><p>${L('دبلومة متكاملة أدرّسها وأشرف عليها، كل وحدة فيها تنتهي بمشروع عملي وتقييم قابل للقياس.','A complete diploma I teach and supervise — every module ends with a hands-on project and a measurable assessment.')}</p><div class="road">${RD.map((r,i)=>`<div class="rs"><b>0${i+1}</b><h4>${L(r[0],r[1])}</h4><div class="chips" style="margin-top:.5rem">${chips(r[2])}</div></div>`).join('')}</div></div>`+TR.map(t=>`<div class="glass tilt rv"><div class="ic">${ico(t[0])}</div><h3>${L(t[1],t[2])}</h3><p>${L(t[3],t[4])}</p></div>`).join('');
  $('#qp').innerHTML=QP.map(q=>`<div class="glass pp rv"><div class="ic">${ico(q[0])}</div><h3>${L(q[1],q[2])}</h3><p>${L(q[3],q[4])}</p></div>`).join('');
  $('#aip').innerHTML=AI.map(p=>win(p,1)).join('');$('#wp').innerHTML=WB.map(p=>win(p,0)).join('');
- $('#tl').innerHTML=TL.map(t=>`<div class="ti glass rv"><time class="mono">${t[0]}</time><h3>${L(t[1],t[2])}</h3><ul>${(en?t[5]:t[3]).map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('');
- $('#sk').innerHTML=SK.map(s=>`<div class="glass rv"><h3>${s[0].split('|')[en?1:0]}</h3><div class="chips">${chips(s[1].join('|'))}</div></div>`).join('')+`<div class="glass rv"><h3>${L('الشهادات','Certifications')}</h3><ul style="padding-inline-start:1.1rem">${CE.map(c=>`<li>${L(c[0],c[1])}</li>`).join('')}</ul></div>`;
+ $('#tl').innerHTML=TL.map(t=>`<div class="ti glass rv"><time class="mono">${t[0]}</time><h3>${L(t[1],t[2])}</h3><ul>${(en?t[4]:t[3]).map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('');
+ $('#sk').innerHTML=SK.map(s=>`<div class="glass rv"><h3>${(s[0].split('|')[en?1:0]||s[0])}</h3><div class="chips">${chips(s[1].join('|'))}</div></div>`).join('')+`<div class="glass rv"><h3>${L('الشهادات','Certifications')}</h3><ul style="padding-inline-start:1.1rem">${CE.map(c=>`<li>${L(c[0],c[1])}</li>`).join('')}</ul></div>`;
  $('#ct').innerHTML=CT.map(c=>`<a class="glass" href="${c[2]}" ${c[2][0]=='m'?'':'target="_blank" rel="noopener"'}>${ico(c[0])}<span ${c[0]=='wa'?'dir="ltr"':''}>${c[1]}</span></a>`).join('');
  $$('#tr .rv,#qp .rv,#aip .rv,#wp .rv,#tl .rv,#sk .rv,#ck').forEach((e,i)=>{if(rend.d){e.classList.add('on','done')}else{e.style.transitionDelay=(i%3)*.1+'s';io.observe(e)}});
 }
@@ -325,8 +325,8 @@ if(matchMedia('(pointer:fine)').matches){
  addEventListener('mousemove',e=>{const c=$('#cur');c.style.left=e.clientX+'px';c.style.top=e.clientY+'px';
   const el=e.target.closest('.glass,.card3');if(!el)return;const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
   el.style.setProperty('--mx',x*100+'%');el.style.setProperty('--my',y*100+'%');
-  if(el.classList.contains('tilt')&&(el.classList.contains('done')||el.classList.contains('card3')))el.style.transform=`perspective(900px) rotateX(${(.5-y)*6}deg) rotateY(${(x-.5)*8}deg) translateY(-5px)`});
- document.addEventListener('mouseout',e=>{const el=e.target.closest('.tilt');if(el&&!el.contains(e.relatedTarget))el.style.transform=''})}
+  if(el.classList.contains('tilt')&&el.classList.contains('done'))el.style.transform=`perspective(900px) rotateX(${(.5-y)*6}deg) rotateY(${(x-.5)*8}deg) translateY(-5px)`});
+ document.addEventListener('mouseout',e=>{const el=e.target.closest('.tilt');if(el&&!el.contains(e.relatedTarget)&&el.classList.contains('glass'))el.style.transform=''})}
 // scroll-following code circle
 const TV=[...$$('.tv')],P=TV.map(()=>({x:innerWidth*.85,y:innerHeight*.3})),K=[.045,.08,.12,.17].reverse();
 (function tick(t){const p=scrollY/Math.max(1,R.scrollHeight-innerHeight),w=innerWidth<900?.36:.42;
